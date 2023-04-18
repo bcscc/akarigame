@@ -26,7 +26,7 @@ public class PuzzleImpl implements Puzzle {
     if (r < 0 || c < 0 || r >= getWidth() || c >= getHeight()) {
       throw new IllegalArgumentException();
     }
-    if (board[r][c] >= 0 || board[r][c] < 5) {
+    if (board[r][c] >= 0 && board[r][c] < 5) {
       return CellType.CLUE;
     } else if (board[r][c] == 5) {
       return CellType.WALL;
