@@ -24,7 +24,7 @@ public class PuzzleImpl implements Puzzle {
   @Override
   public CellType getCellType(int r, int c) {
     if (r < 0 || c < 0 || r >= getHeight() || c >= getWidth()) {
-      throw new IllegalArgumentException();
+      throw new IndexOutOfBoundsException();
     }
     if (board[r][c] >= 0 && board[r][c] < 5) {
       return CellType.CLUE;
