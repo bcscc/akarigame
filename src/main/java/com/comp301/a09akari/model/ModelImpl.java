@@ -52,6 +52,9 @@ public class ModelImpl implements Model {
 
   @Override
   public void setActivePuzzleIndex(int index) {
+    if (index >= puzzleLibrary.size()) {
+      throw new IllegalArgumentException();
+    }
     activePuzzleIdx = index;
   }
 
