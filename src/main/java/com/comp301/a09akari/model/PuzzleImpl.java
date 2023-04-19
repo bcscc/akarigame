@@ -30,15 +30,16 @@ public class PuzzleImpl implements Puzzle {
       return CellType.CLUE;
     } else if (board[r][c] == 5) {
       return CellType.WALL;
-    } else if (board[r][c] == 6) {
-      return CellType.CORRIDOR;
     } else {
-      throw new IllegalStateException();
+      return CellType.CORRIDOR;
     }
   }
 
   @Override
   public int getClue(int r, int c) {
+    if (getCellType(r, c) != CellType.CLUE) {
+      throw new IllegalArgumentException();
+    }
     return board[r][c];
   }
 }
