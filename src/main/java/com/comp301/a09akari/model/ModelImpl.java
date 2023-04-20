@@ -8,6 +8,7 @@ public class ModelImpl implements Model {
   PuzzleLibrary puzzleLibrary;
   List<ModelObserver> observers;
   int activePuzzleIdx;
+  List<Lamp> lamps;
 
   public ModelImpl(PuzzleLibrary library) {
     if (library == null) {
@@ -16,27 +17,47 @@ public class ModelImpl implements Model {
     puzzleLibrary = library;
     observers = new ArrayList<>();
     activePuzzleIdx = 0;
+    lamps = new ArrayList<>();
     // Your constructor code here
   }
 
   @Override
-  public void addLamp(int r, int c) {}
+  public void addLamp(int r, int c) {
+    if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
+      throw new IllegalArgumentException();
+    }
+    Lamp newLamp = new LampImpl(r, c);
+    if (!lamps.contains(newLamp)) {
+      lamps.add(newLamp);
+    }
+  }
 
   @Override
-  public void removeLamp(int r, int c) {}
+  public void removeLamp(int r, int c) {
+    if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
+      throw new IllegalArgumentException();
+    }
+    Lamp newLamp = new LampImpl(r, c);
+    lamps.remove(newLamp);
+  }
 
   @Override
   public boolean isLit(int r, int c) {
+    // TODO
     return false;
   }
 
   @Override
   public boolean isLamp(int r, int c) {
-    return false;
+    if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
+      throw new IllegalArgumentException();
+    }
+    return lamps.contains(new LampImpl(r, c));
   }
 
   @Override
   public boolean isLampIllegal(int r, int c) {
+    // TODO
     return false;
   }
 
@@ -64,15 +85,19 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void resetPuzzle() {}
+  public void resetPuzzle() {
+    lamps = new ArrayList<>();
+  }
 
   @Override
   public boolean isSolved() {
+    // TODO
     return false;
   }
 
   @Override
   public boolean isClueSatisfied(int r, int c) {
+    // TODO
     return false;
   }
 
