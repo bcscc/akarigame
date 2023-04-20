@@ -20,7 +20,7 @@ public class PuzzleLibraryImpl implements PuzzleLibrary {
 
   @Override
   public Puzzle getPuzzle(int index) {
-    if (index >= size()) {
+    if (index >= size() || index < 0) {
       throw new IndexOutOfBoundsException();
     }
     return puzzles.get(index);
