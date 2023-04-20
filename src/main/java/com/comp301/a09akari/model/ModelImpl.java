@@ -73,7 +73,7 @@ public class ModelImpl implements Model {
 
   @Override
   public void setActivePuzzleIndex(int index) {
-    if (index >= puzzleLibrary.size()) {
+    if (index >= getPuzzleLibrarySize()) {
       throw new IndexOutOfBoundsException();
     }
     activePuzzleIdx = index;
