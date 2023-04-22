@@ -50,7 +50,7 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     for (Pair<Integer, Integer> p : lamps) {
-      //return isLightClear(p, r, c);
+      return isLightClear(p, r, c);
     }
     return false;
   }
@@ -130,44 +130,48 @@ public class ModelImpl implements Model {
   public boolean isLightClear(Pair<Integer, Integer> lamp, int r, int c) {
     if (lamp.getKey() == r && lamp.getValue() == c) {
       return true;
-    } else if (lamp.getKey() == r) {
-      int start = lamp.getValue();
-      boolean blocked = false;
-      while (!blocked && start != c) {
-        if (c < start) {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
-              != CellType.CORRIDOR) {
-            blocked = true;
-          }
-          start -= 1;
-        } else {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
-              != CellType.CORRIDOR) {
-            blocked = true;
-          }
-          start += 1;
-        }
-      }
-      return !blocked;
     } else {
-      int start = lamp.getKey();
-      boolean blocked = false;
-      while (!blocked && start != r) {
-        if (r < start) {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
-              != CellType.CORRIDOR) {
-            blocked = true;
+      if (lamp.getKey() == r) {
+        int start = lamp.getValue();
+        boolean blocked = false;
+        while (!blocked && start != c) {
+          if (c < start) {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start -= 1;
+          } else {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start += 1;
           }
-          start -= 1;
-        } else {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
-              != CellType.CORRIDOR) {
-            blocked = true;
-          }
-          start += 1;
         }
+        return !blocked;
       }
-      return !blocked;
+      else if (lamp.getValue() == c) {
+        int start = lamp.getKey();
+        boolean blocked = false;
+        while (!blocked && start != r) {
+          if (r < start) {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start -= 1;
+          } else {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start += 1;
+          }
+        }
+        return !blocked;
+      }
     }
+    return false;
   }
 }

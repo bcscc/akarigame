@@ -6,11 +6,11 @@ import javafx.application.Application;
 public class Main {
   public static void main(String[] args) {
 
-    PuzzleLibrary library = new PuzzleLibraryImpl();
-    // Application.launch(AppLauncher.class);
+    Application.launch(AppLauncher.class);
+    /* PuzzleLibrary library = new PuzzleLibraryImpl();
     int[][] PUZZLE_01 = {
-      {6, 6, 6},
-      {6, 6, 6},
+      {6, 3, 6},
+      {5, 6, 6},
       {6, 6, 6}
     };
     Puzzle puzzle = new PuzzleImpl(PUZZLE_01);
@@ -18,8 +18,8 @@ public class Main {
 
     Model model = new ModelImpl(library);
     model.addLamp(0, 0);
-    model.addLamp(0, 0);
-    model.removeLamp(0, 0);
-    model.removeLamp(1,0);
+    System.out.println(model.isLit(0, 0));
+
+     */
   }
 }
