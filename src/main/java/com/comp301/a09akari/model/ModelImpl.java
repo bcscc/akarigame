@@ -96,7 +96,7 @@ public class ModelImpl implements Model {
 
   @Override
   public void resetPuzzle() {
-    lamps = new ArrayList<>();
+    lamps = new HashSet<>();
     notifyObservers();
   }
 
