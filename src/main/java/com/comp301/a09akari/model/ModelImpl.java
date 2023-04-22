@@ -3,13 +3,14 @@ package com.comp301.a09akari.model;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ModelImpl implements Model {
 
   PuzzleLibrary puzzleLibrary;
   List<ModelObserver> observers;
   int activePuzzleIdx;
-  HashSet<Lamp> lamps;
+  Set<Lamp> lamps;
 
   public ModelImpl(PuzzleLibrary library) {
     if (library == null) {
@@ -49,7 +50,7 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    for (Lamp lamp: lamps) {
+    for (Lamp lamp : lamps) {
       return isLightClear(lamp, r, c);
     }
     return false;
@@ -122,7 +123,7 @@ public class ModelImpl implements Model {
   }
 
   public void notifyObservers() {
-    for (ModelObserver o: observers) {
+    for (ModelObserver o : observers) {
       o.update(this);
     }
   }
@@ -130,17 +131,19 @@ public class ModelImpl implements Model {
   public boolean isLightClear(Lamp lamp, int r, int c) {
     if (lamp.getRow() == r && lamp.getColumn() == c) {
       return true;
-    } else if(lamp.getRow() == r) {
+    } else if (lamp.getRow() == r) {
       int start = lamp.getColumn();
       boolean blocked = false;
       while (!blocked && start != c) {
         if (c < start) {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1) != CellType.CORRIDOR) {
+          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
+              != CellType.CORRIDOR) {
             blocked = true;
           }
           start -= 1;
         } else {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1) != CellType.CORRIDOR) {
+          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
+              != CellType.CORRIDOR) {
             blocked = true;
           }
           start += 1;
@@ -152,12 +155,14 @@ public class ModelImpl implements Model {
       boolean blocked = false;
       while (!blocked && start != r) {
         if (r < start) {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c) != CellType.CORRIDOR) {
+          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
+              != CellType.CORRIDOR) {
             blocked = true;
           }
           start -= 1;
         } else {
-          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c) != CellType.CORRIDOR) {
+          if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
+              != CellType.CORRIDOR) {
             blocked = true;
           }
           start += 1;
@@ -166,7 +171,4 @@ public class ModelImpl implements Model {
       return !blocked;
     }
   }
-
 }
-
-
