@@ -1,5 +1,6 @@
 package com.comp301.a09akari.model;
 
+import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,7 +11,7 @@ public class ModelImpl implements Model {
   PuzzleLibrary puzzleLibrary;
   List<ModelObserver> observers;
   int activePuzzleIdx;
-  Set<Lamp> lamps;
+  Set<Pair<Integer, Integer>> lamps;
 
   public ModelImpl(PuzzleLibrary library) {
     if (library == null) {
@@ -28,9 +29,8 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    Lamp newLamp = new LampImpl(r, c);
-    if (lamps.contains(newLamp)) {
-      lamps.add(newLamp);
+    if (!lamps.contains(new Pair<>(r, c))) {
+      lamps.add(new Pair<>(r, c));
     }
     notifyObservers();
   }
@@ -40,8 +40,7 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    Lamp newLamp = new LampImpl(r, c);
-    lamps.remove(newLamp);
+    lamps.remove(new Pair<>(r, c));
     notifyObservers();
   }
 
@@ -50,8 +49,8 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    for (Lamp lamp : lamps) {
-      return isLightClear(lamp, r, c);
+    for (Pair<Integer, Integer> p : lamps) {
+      //return isLightClear(p, r, c);
     }
     return false;
   }
@@ -61,7 +60,7 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    return lamps.contains(new LampImpl(r, c));
+    return lamps.contains(new Pair<>(r, c));
   }
 
   @Override
@@ -128,11 +127,11 @@ public class ModelImpl implements Model {
     }
   }
 
-  public boolean isLightClear(Lamp lamp, int r, int c) {
-    if (lamp.getRow() == r && lamp.getColumn() == c) {
+  public boolean isLightClear(Pair<Integer, Integer> lamp, int r, int c) {
+    if (lamp.getKey() == r && lamp.getValue() == c) {
       return true;
-    } else if (lamp.getRow() == r) {
-      int start = lamp.getColumn();
+    } else if (lamp.getKey() == r) {
+      int start = lamp.getValue();
       boolean blocked = false;
       while (!blocked && start != c) {
         if (c < start) {
@@ -151,7 +150,7 @@ public class ModelImpl implements Model {
       }
       return !blocked;
     } else {
-      int start = lamp.getRow();
+      int start = lamp.getKey();
       boolean blocked = false;
       while (!blocked && start != r) {
         if (r < start) {
