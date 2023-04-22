@@ -6,8 +6,8 @@ import javafx.application.Application;
 public class Main {
   public static void main(String[] args) {
 
-    Application.launch(AppLauncher.class);
-    /* PuzzleLibrary library = new PuzzleLibraryImpl();
+    //Application.launch(AppLauncher.class);
+    PuzzleLibrary library = new PuzzleLibraryImpl();
     int[][] PUZZLE_01 = {
       {6, 3, 6},
       {5, 6, 6},
@@ -17,9 +17,7 @@ public class Main {
     library.addPuzzle(puzzle);
 
     Model model = new ModelImpl(library);
-    model.addLamp(0, 0);
-    System.out.println(model.isLit(0, 0));
-
-     */
+    model.addLamp(1, 1);
+    System.out.println(model.isLit(1, 2));
   }
 }

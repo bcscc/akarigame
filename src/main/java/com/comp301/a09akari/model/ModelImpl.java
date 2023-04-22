@@ -50,7 +50,9 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     for (Pair<Integer, Integer> p : lamps) {
-      return isLightClear(p, r, c);
+      if (isLightClear(p, r, c)) {
+        return true;
+      }
     }
     return false;
   }
