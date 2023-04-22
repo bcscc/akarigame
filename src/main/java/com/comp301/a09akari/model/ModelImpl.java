@@ -23,24 +23,20 @@ public class ModelImpl implements Model {
 
   @Override
   public void addLamp(int r, int c) {
-    if (r < 0 || c < 0 || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight() || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
-      throw new IndexOutOfBoundsException();
-    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
     Lamp newLamp = new LampImpl(r, c);
-    if (!lamps.contains(newLamp)) {
-      lamps.add(newLamp);
+    for (Lamp lamp: lamps) {
+      if (lamp.getRow() == r && lamp.getColumn() == c) {
+        lamps.add(newLamp);
+      }
     }
     notifyObservers();
   }
 
   @Override
   public void removeLamp(int r, int c) {
-    if (r < 0 || c < 0 || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight() || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
-      throw new IndexOutOfBoundsException();
-    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
