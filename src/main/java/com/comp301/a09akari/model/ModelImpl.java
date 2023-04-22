@@ -1,6 +1,7 @@
 package com.comp301.a09akari.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class ModelImpl implements Model {
@@ -8,7 +9,7 @@ public class ModelImpl implements Model {
   PuzzleLibrary puzzleLibrary;
   List<ModelObserver> observers;
   int activePuzzleIdx;
-  List<Lamp> lamps;
+  HashSet<Lamp> lamps;
 
   public ModelImpl(PuzzleLibrary library) {
     if (library == null) {
@@ -17,7 +18,7 @@ public class ModelImpl implements Model {
     puzzleLibrary = library;
     observers = new ArrayList<>();
     activePuzzleIdx = 0;
-    lamps = new ArrayList<>();
+    lamps = new HashSet<>();
     // Your constructor code here
   }
 
@@ -27,10 +28,8 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     Lamp newLamp = new LampImpl(r, c);
-    for (Lamp lamp: lamps) {
-      if (lamp.getRow() == r && lamp.getColumn() == c) {
-        lamps.add(newLamp);
-      }
+    if (lamps.contains(newLamp)) {
+      lamps.add(newLamp);
     }
     notifyObservers();
   }
