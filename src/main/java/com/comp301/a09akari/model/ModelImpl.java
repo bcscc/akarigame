@@ -115,14 +115,36 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isSolved() {
+    for (Pair<Integer, Integer> p: lamps) {
+      if (isLampIllegal(p.getKey(), p.getValue())){
+        return false;
+      }
+    }
     // TODO
     return false;
   }
 
   @Override
   public boolean isClueSatisfied(int r, int c) {
-    // TODO
-    return false;
+    if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CLUE) {
+      throw new IllegalArgumentException();
+    }
+    int numLumps = 0;
+    for (Pair<Integer, Integer> p: lamps) {
+      if ((p.getKey() == r - 1) && (p.getValue() == c)) {
+        numLumps += 1;
+      }
+      if ((p.getKey() == r + 1) && (p.getValue() == c)) {
+        numLumps += 1;
+      }
+      if ((p.getKey() == r) && (p.getValue() == c - 1)) {
+        numLumps += 1;
+      }
+      if ((p.getKey() == r) && (p.getValue() == c + 1)) {
+        numLumps += 1;
+      }
+    }
+    return numLumps == puzzleLibrary.getPuzzle(activePuzzleIdx).getClue(r, c);
   }
 
   @Override
