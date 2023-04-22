@@ -70,11 +70,16 @@ public class ModelImpl implements Model {
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    for (Pair<Integer, Integer> p : lamps) {
-      if (isLightClear(p, r, c)) {
+    if (!isLamp(r, c)) {
+      throw new IllegalArgumentException();
+    }
+
+    for (Pair<Integer, Integer> otherLamp : lamps) {
+      if (!otherLamp.equals(new Pair<>(r, c)) && isLightClear(otherLamp, r, c)) {
         return true;
       }
     }
+
     return false;
   }
 
@@ -159,8 +164,7 @@ public class ModelImpl implements Model {
           }
         }
         return !blocked;
-      }
-      else if (lamp.getValue() == c) {
+      } else if (lamp.getValue() == c) {
         int start = lamp.getKey();
         boolean blocked = false;
         while (!blocked && start != r) {
