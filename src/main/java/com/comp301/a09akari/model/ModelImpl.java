@@ -30,6 +30,7 @@ public class ModelImpl implements Model {
     if (!lamps.contains(newLamp)) {
       lamps.add(newLamp);
     }
+    notifyObservers();
   }
 
   @Override
@@ -39,6 +40,7 @@ public class ModelImpl implements Model {
     }
     Lamp newLamp = new LampImpl(r, c);
     lamps.remove(newLamp);
+    notifyObservers();
   }
 
   @Override
@@ -87,6 +89,7 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lamps = new ArrayList<>();
+    notifyObservers();
   }
 
   @Override
@@ -110,4 +113,12 @@ public class ModelImpl implements Model {
   public void removeObserver(ModelObserver observer) {
     observers.remove(observer);
   }
+
+  public void notifyObservers() {
+    for (ModelObserver o: observers) {
+      o.update(this);
+    }
+  }
 }
+
+
