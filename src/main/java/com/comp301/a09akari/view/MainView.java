@@ -8,8 +8,8 @@ import javafx.scene.Scene;import javafx.scene.layout.BorderPane;
 
 public class MainView implements FXComponent, ModelObserver {
   private final Scene scene;
-  private final FXComponent TitleView;
-  private final FXComponent MenuView;
+  //private final FXComponent TitleView;
+  //private final FXComponent MenuView;
 
 
 
