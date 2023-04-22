@@ -6,8 +6,8 @@ import javafx.application.Application;
 public class Main {
   public static void main(String[] args) {
 
-    //Application.launch(AppLauncher.class);
-
+    Application.launch(AppLauncher.class);
+    /*
     PuzzleLibrary library = new PuzzleLibraryImpl();
     int[][] PUZZLE_01 = {
       {6, 2, 6},
@@ -26,6 +26,8 @@ public class Main {
     System.out.println(model.isClueSatisfied(1, 1));
     model.addLamp(1,2);
     System.out.println(model.isClueSatisfied(1, 1));
+
+     */
 
 
   }
