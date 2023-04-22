@@ -67,7 +67,14 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isLampIllegal(int r, int c) {
-    // TODO
+    if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
+      throw new IllegalArgumentException();
+    }
+    for (Pair<Integer, Integer> p : lamps) {
+      if (isLightClear(p, r, c)) {
+        return true;
+      }
+    }
     return false;
   }
 
