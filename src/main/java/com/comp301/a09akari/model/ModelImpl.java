@@ -37,6 +37,7 @@ public class ModelImpl implements Model {
     }
     if (!lamps.contains(new Pair<>(r, c))) {
       lamps.add(new Pair<>(r, c));
+      System.out.println("Added Lamp at R: " + r + " C: " + c);
     }
     notifyObservers();
   }
@@ -140,7 +141,7 @@ public class ModelImpl implements Model {
   @Override
   public boolean isSolved() {
     for (Pair<Integer, Integer> p : lamps) {
-      System.out.println("R: " + p.getKey() + " C: " + p.getValue());
+      System.out.println("Checking Lamp at R: " + p.getKey() + " C: " + p.getValue());
       if (isLampIllegal(p.getKey(), p.getValue())) {
         return false;
       }
