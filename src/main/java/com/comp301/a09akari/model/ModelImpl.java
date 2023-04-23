@@ -126,6 +126,7 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     activePuzzleIdx = index;
+    resetPuzzle();
     System.out.println("Changed Puzzle");
     notifyObservers();
   }
@@ -151,14 +152,13 @@ public class ModelImpl implements Model {
           if (!isClueSatisfied(r, c)) {
             return false;
           }
-        }
-        else if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CORRIDOR) {
+        } else if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c)
+            == CellType.CORRIDOR) {
           if (isLamp(r, c)) {
             if (isLampIllegal(r, c)) {
               return false;
             }
-          }
-          else if (!isLit(r, c)) {
+          } else if (!isLit(r, c)) {
             return false;
           }
         }
