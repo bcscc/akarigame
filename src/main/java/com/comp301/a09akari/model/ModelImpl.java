@@ -21,6 +21,7 @@ public class ModelImpl implements Model {
     observers = new ArrayList<>();
     activePuzzleIdx = 0;
     lamps = new HashSet<>();
+    System.out.println("New Model");
     // Your constructor code here
   }
 
@@ -54,6 +55,7 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lamps.remove(new Pair<>(r, c));
+    System.out.println("Removed Lamp at R: " + r + " C: " + c);
     notifyObservers();
   }
 
@@ -124,6 +126,7 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     activePuzzleIdx = index;
+    System.out.println("Changed Puzzle");
     notifyObservers();
   }
 
@@ -135,6 +138,7 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lamps = new HashSet<>();
+    System.out.println("Reset Puzzle");
     notifyObservers();
   }
 
