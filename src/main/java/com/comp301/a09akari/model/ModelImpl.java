@@ -124,7 +124,6 @@ public class ModelImpl implements Model {
     }
     activePuzzleIdx = index;
     resetPuzzle();
-    notifyObservers();
   }
 
   @Override
