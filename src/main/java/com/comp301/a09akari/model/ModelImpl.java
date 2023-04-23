@@ -115,6 +115,11 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isSolved() {
+    for (Pair<Integer, Integer> p : lamps) {
+      if (isLampIllegal(p.getKey(), p.getValue())) {
+        return false;
+      }
+    }
     for (int r = 0; r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); r++) {
       for (int c = 0; c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); c++) {
         if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CLUE) {
@@ -126,15 +131,7 @@ public class ModelImpl implements Model {
           if (!isLit(r, c)) {
             return false;
           }
-          if (isLamp(r, c) && isLampIllegal(r, c)) {
-            return false;
-          }
         }
-      }
-    }
-    for (Pair<Integer, Integer> lamp : lamps) {
-      if (isLampIllegal(lamp.getKey(), lamp.getValue())) {
-        return false;
       }
     }
     return true;
@@ -182,25 +179,46 @@ public class ModelImpl implements Model {
   public boolean isLightClear(Pair<Integer, Integer> lamp, int r, int c) {
     if (lamp.getKey() == r && lamp.getValue() == c) {
       return true;
-    }
-    if (lamp.getKey() == r) {
-      int minCol = Math.min(lamp.getValue(), c);
-      int maxCol = Math.max(lamp.getValue(), c);
-      for (int col = minCol + 1; col < maxCol; col++) {
-        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, col) != CellType.CORRIDOR) {
-          return false;
+    } else {
+      if (lamp.getKey() == r) {
+        int start = lamp.getValue();
+        boolean blocked = false;
+        while (!blocked && start != c) {
+          if (c < start) {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start -= 1;
+          } else {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start += 1;
+          }
         }
-      }
-      return true;
-    } else if (lamp.getValue() == c) {
-      int minRow = Math.min(lamp.getKey(), r);
-      int maxRow = Math.max(lamp.getKey(), r);
-      for (int row = minRow + 1; row < maxRow; row++) {
-        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(row, c) != CellType.CORRIDOR) {
-          return false;
+        return !blocked;
+      } else if (lamp.getValue() == c) {
+        int start = lamp.getKey();
+        boolean blocked = false;
+        while (!blocked && start != r) {
+          if (r < start) {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start -= 1;
+          } else {
+            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
+                != CellType.CORRIDOR) {
+              blocked = true;
+            }
+            start += 1;
+          }
         }
+        return !blocked;
       }
-      return true;
     }
     return false;
   }
