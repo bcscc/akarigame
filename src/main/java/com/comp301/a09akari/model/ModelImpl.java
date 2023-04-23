@@ -26,6 +26,12 @@ public class ModelImpl implements Model {
 
   @Override
   public void addLamp(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
@@ -37,6 +43,12 @@ public class ModelImpl implements Model {
 
   @Override
   public void removeLamp(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
@@ -46,6 +58,12 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isLit(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
@@ -59,6 +77,12 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isLamp(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
@@ -67,6 +91,12 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isLampIllegal(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
@@ -139,6 +169,12 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isClueSatisfied(int r, int c) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+      throw new IndexOutOfBoundsException();
+    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CLUE) {
       throw new IllegalArgumentException();
     }
@@ -177,7 +213,10 @@ public class ModelImpl implements Model {
   }
 
   public boolean isLightClear(Pair<Integer, Integer> lamp, int r, int c) {
-    if (r < 0 || c < 0 || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight() || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+    if (r < 0
+        || c < 0
+        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
       throw new IndexOutOfBoundsException();
     }
     if (lamp.getKey() == r && lamp.getValue() == c) {
