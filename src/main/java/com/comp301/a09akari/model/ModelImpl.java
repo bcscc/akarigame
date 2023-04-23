@@ -140,12 +140,6 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isSolved() {
-    for (Pair<Integer, Integer> p : lamps) {
-      System.out.println("Checking Lamp at R: " + p.getKey() + " C: " + p.getValue());
-      if (isLampIllegal(p.getKey(), p.getValue())) {
-        return false;
-      }
-    }
     for (int r = 0; r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); r++) {
       for (int c = 0; c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); c++) {
         if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CLUE) {
@@ -153,8 +147,13 @@ public class ModelImpl implements Model {
             return false;
           }
         }
-        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CORRIDOR) {
-          if (!isLit(r, c)) {
+        else if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CORRIDOR) {
+          if (isLamp(r, c)) {
+            if (isLampIllegal(r, c)) {
+              return false;
+            }
+          }
+          else if (!isLit(r, c)) {
             return false;
           }
         }
