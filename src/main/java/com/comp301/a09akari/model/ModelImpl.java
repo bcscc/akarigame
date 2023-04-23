@@ -185,15 +185,25 @@ public class ModelImpl implements Model {
         boolean blocked = false;
         while (!blocked && start != c) {
           if (c < start) {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
-                != CellType.CORRIDOR) {
-              blocked = true;
+            if (r >= 0
+                && c >= 0
+                && r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+                && start - 1 < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+              if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
+                  != CellType.CORRIDOR) {
+                blocked = true;
+              }
             }
             start -= 1;
           } else {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
-                != CellType.CORRIDOR) {
-              blocked = true;
+            if (r >= 0
+                && c >= 0
+                && r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+                && start + 1 < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+              if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
+                  != CellType.CORRIDOR) {
+                blocked = true;
+              }
             }
             start += 1;
           }
@@ -204,15 +214,25 @@ public class ModelImpl implements Model {
         boolean blocked = false;
         while (!blocked && start != r) {
           if (r < start) {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
-                != CellType.CORRIDOR) {
-              blocked = true;
+            if (r >= 0
+                && c >= 0
+                && start - 1 < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+                && c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+              if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
+                  != CellType.CORRIDOR) {
+                blocked = true;
+              }
             }
             start -= 1;
           } else {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
-                != CellType.CORRIDOR) {
-              blocked = true;
+            if (r >= 0
+                && c >= 0
+                && start + 1 < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
+                && c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
+              if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
+                  != CellType.CORRIDOR) {
+                blocked = true;
+              }
             }
             start += 1;
           }
