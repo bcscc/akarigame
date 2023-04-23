@@ -4,14 +4,13 @@ import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Model;
 import com.comp301.a09akari.model.ModelObserver;
 import javafx.scene.Parent;
-import javafx.scene.Scene;import javafx.scene.layout.BorderPane;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 
 public class MainView implements FXComponent, ModelObserver {
   private final Scene scene;
-  //private final FXComponent TitleView;
-  //private final FXComponent MenuView;
-
-
+  // private final FXComponent TitleView;
+  // private final FXComponent MenuView;
 
   public MainView(Model model, ClassicMvcController controller) {
     this.scene = new Scene(render());
@@ -21,7 +20,6 @@ public class MainView implements FXComponent, ModelObserver {
   @Override
   public Parent render() {
     BorderPane pane = new BorderPane();
-
 
     return null;
   }

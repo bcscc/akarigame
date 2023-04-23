@@ -126,12 +126,10 @@ public class ModelImpl implements Model {
           if (!isLit(r, c)) {
             return false;
           }
+          if (isLamp(r, c) && isLampIllegal(r, c)) {
+            return false;
+          }
         }
-      }
-    }
-    for (Pair<Integer, Integer> p : lamps) {
-      if (isLampIllegal(p.getKey(), p.getValue())) {
-        return false;
       }
     }
     return true;
