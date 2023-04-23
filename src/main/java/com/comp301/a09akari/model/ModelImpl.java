@@ -115,15 +115,20 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isSolved() {
-    for (Pair<Integer, Integer> p: lamps) {
-      if (isLampIllegal(p.getKey(), p.getValue())){
+    for (Pair<Integer, Integer> p : lamps) {
+      if (isLampIllegal(p.getKey(), p.getValue())) {
         return false;
       }
     }
-    for (int i=0; i < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); i++) {
-      for (int j=0; j < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); j++) {
+    for (int i = 0; i < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); i++) {
+      for (int j = 0; j < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); j++) {
         if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(i, j) == CellType.CLUE) {
           if (!isClueSatisfied(i, j)) {
+            return false;
+          }
+        }
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(i, j) == CellType.CORRIDOR) {
+          if (!isLit(i, j)) {
             return false;
           }
         }
@@ -138,7 +143,7 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     int numLumps = 0;
-    for (Pair<Integer, Integer> p: lamps) {
+    for (Pair<Integer, Integer> p : lamps) {
       if ((p.getKey() == r - 1) && (p.getValue() == c)) {
         numLumps += 1;
       }
