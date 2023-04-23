@@ -144,6 +144,7 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isSolved() {
+    System.out.println("Checking isSolved");
     for (int r = 0; r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); r++) {
       for (int c = 0; c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); c++) {
         if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CLUE) {
