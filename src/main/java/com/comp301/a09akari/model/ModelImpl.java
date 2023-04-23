@@ -120,15 +120,15 @@ public class ModelImpl implements Model {
         return false;
       }
     }
-    for (int i = 0; i < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); i++) {
-      for (int j = 0; j < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); j++) {
-        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(i, j) == CellType.CLUE) {
-          if (!isClueSatisfied(i, j)) {
+    for (int r = 0; r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); r++) {
+      for (int c = 0; c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); c++) {
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CLUE) {
+          if (!isClueSatisfied(r, c)) {
             return false;
           }
         }
-        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(i, j) == CellType.CORRIDOR) {
-          if (!isLit(i, j)) {
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CORRIDOR) {
+          if (!isLit(r, c)) {
             return false;
           }
         }
