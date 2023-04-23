@@ -120,8 +120,16 @@ public class ModelImpl implements Model {
         return false;
       }
     }
-    // TODO
-    return false;
+    for (int i=0; i < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); i++) {
+      for (int j=0; j < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); j++) {
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(i, j) == CellType.CLUE) {
+          if (!isClueSatisfied(i, j)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   @Override
