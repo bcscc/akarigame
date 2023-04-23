@@ -140,6 +140,7 @@ public class ModelImpl implements Model {
   @Override
   public boolean isSolved() {
     for (Pair<Integer, Integer> p : lamps) {
+      System.out.println("R: " + p.getKey() + " C: " + p.getValue());
       if (isLampIllegal(p.getKey(), p.getValue())) {
         return false;
       }
