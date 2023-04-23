@@ -177,46 +177,25 @@ public class ModelImpl implements Model {
   public boolean isLightClear(Pair<Integer, Integer> lamp, int r, int c) {
     if (lamp.getKey() == r && lamp.getValue() == c) {
       return true;
-    } else {
-      if (lamp.getKey() == r) {
-        int start = lamp.getValue();
-        boolean blocked = false;
-        while (!blocked && start != c) {
-          if (c < start) {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start - 1)
-                != CellType.CORRIDOR) {
-              blocked = true;
-            }
-            start -= 1;
-          } else {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, start + 1)
-                != CellType.CORRIDOR) {
-              blocked = true;
-            }
-            start += 1;
-          }
+    }
+    if (lamp.getKey() == r) {
+      int minCol = Math.min(lamp.getValue(), c);
+      int maxCol = Math.max(lamp.getValue(), c);
+      for (int col = minCol + 1; col < maxCol; col++) {
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, col) != CellType.CORRIDOR) {
+          return false;
         }
-        return !blocked;
-      } else if (lamp.getValue() == c) {
-        int start = lamp.getKey();
-        boolean blocked = false;
-        while (!blocked && start != r) {
-          if (r < start) {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start - 1, c)
-                != CellType.CORRIDOR) {
-              blocked = true;
-            }
-            start -= 1;
-          } else {
-            if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(start + 1, c)
-                != CellType.CORRIDOR) {
-              blocked = true;
-            }
-            start += 1;
-          }
-        }
-        return !blocked;
       }
+      return true;
+    } else if (lamp.getValue() == c) {
+      int minRow = Math.min(lamp.getKey(), r);
+      int maxRow = Math.max(lamp.getKey(), r);
+      for (int row = minRow + 1; row < maxRow; row++) {
+        if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(row, c) != CellType.CORRIDOR) {
+          return false;
+        }
+      }
+      return true;
     }
     return false;
   }
