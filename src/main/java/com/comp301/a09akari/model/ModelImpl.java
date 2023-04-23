@@ -91,12 +91,6 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isLampIllegal(int r, int c) {
-    if (r < 0
-        || c < 0
-        || r >= puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight()
-        || c >= puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth()) {
-      throw new IndexOutOfBoundsException();
-    }
     if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
