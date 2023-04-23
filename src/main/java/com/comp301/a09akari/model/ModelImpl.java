@@ -132,6 +132,11 @@ public class ModelImpl implements Model {
         }
       }
     }
+    for (Pair<Integer, Integer> lamp : lamps) {
+      if (isLampIllegal(lamp.getKey(), lamp.getValue())) {
+        return false;
+      }
+    }
     return true;
   }
 
