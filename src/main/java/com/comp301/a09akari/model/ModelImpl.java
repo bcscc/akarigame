@@ -21,7 +21,6 @@ public class ModelImpl implements Model {
     observers = new ArrayList<>();
     activePuzzleIdx = 0;
     lamps = new HashSet<>();
-    System.out.println("New Model");
     // Your constructor code here
   }
 
@@ -38,7 +37,6 @@ public class ModelImpl implements Model {
     }
     if (!lamps.contains(new Pair<>(r, c))) {
       lamps.add(new Pair<>(r, c));
-      System.out.println("Added Lamp at R: " + r + " C: " + c);
     }
     notifyObservers();
   }
@@ -55,7 +53,6 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lamps.remove(new Pair<>(r, c));
-    System.out.println("Removed Lamp at R: " + r + " C: " + c);
     notifyObservers();
   }
 
@@ -127,7 +124,6 @@ public class ModelImpl implements Model {
     }
     activePuzzleIdx = index;
     resetPuzzle();
-    System.out.println("Changed Puzzle");
     notifyObservers();
   }
 
@@ -139,13 +135,11 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lamps = new HashSet<>();
-    System.out.println("Reset Puzzle");
     notifyObservers();
   }
 
   @Override
   public boolean isSolved() {
-    System.out.println("Checking isSolved");
     for (int r = 0; r < puzzleLibrary.getPuzzle(activePuzzleIdx).getHeight(); r++) {
       for (int c = 0; c < puzzleLibrary.getPuzzle(activePuzzleIdx).getWidth(); c++) {
         if (puzzleLibrary.getPuzzle(activePuzzleIdx).getCellType(r, c) == CellType.CLUE) {
