@@ -5,23 +5,32 @@ import com.comp301.a09akari.model.Model;
 import com.comp301.a09akari.model.ModelObserver;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 
 public class MainView implements FXComponent, ModelObserver {
+  private final Model model;
+  private final ClassicMvcController controller;
   private final Scene scene;
-  // private final FXComponent TitleView;
-  // private final FXComponent MenuView;
 
   public MainView(Model model, ClassicMvcController controller) {
-    this.scene = new Scene(render());
+    this.model = model;
+    this.controller = controller;
+    this.scene = new Scene(render(), 1000, 1000);
     model.addObserver(this);
   }
 
   @Override
   public Parent render() {
-    BorderPane pane = new BorderPane();
+    VBox pane = new VBox();
 
-    return null;
+    PuzzleView puzzleView = new PuzzleView(model, controller);
+    pane.getChildren().add(puzzleView.render());
+
+    ControllerView controllerView = new ControllerView(model, controller);
+    pane.getChildren().add(controllerView.render());
+
+    return pane;
   }
 
   @Override
