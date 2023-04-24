@@ -6,7 +6,6 @@ import com.comp301.a09akari.model.ModelObserver;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 
 public class MainView implements FXComponent, ModelObserver {
   private final Model model;

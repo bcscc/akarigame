@@ -5,7 +5,6 @@ import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.controller.ControllerImpl;
 import com.comp301.a09akari.model.*;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppLauncher extends Application {
@@ -25,8 +24,6 @@ public class AppLauncher extends Application {
     stage.setScene(view.getScene());
 
     stage.setTitle("Akari");
-    // Scene scene = new Scene(view.render(), 500, 500);
-    // tage.setScene(scene);
     stage.show();
   }
 }

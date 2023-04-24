@@ -5,7 +5,6 @@ import com.comp301.a09akari.model.CellType;
 import com.comp301.a09akari.model.Model;
 import com.comp301.a09akari.model.ModelObserver;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 public class PuzzleView implements FXComponent, ModelObserver {
   private final Model model;
@@ -45,7 +43,7 @@ public class PuzzleView implements FXComponent, ModelObserver {
     Label puzzleIdx = new Label("Puzzle " + (model.getActivePuzzleIndex() + 1));
     puzzleIdx.setStyle("-fx-font-size: 20px; -fx-padding: 15 0 0 0;");
     pane.getChildren().add(puzzleIdx);
-    System.out.println(model.isSolved());
+
     solvedLabel.setVisible(model.isSolved());
     pane.getChildren().add(solvedLabel);
 
@@ -68,7 +66,8 @@ public class PuzzleView implements FXComponent, ModelObserver {
         if (model.getActivePuzzle().getCellType(r, c) == CellType.CLUE) {
           cell = new Button("" + model.getActivePuzzle().getClue(r, c));
           cell.setDisable(true);
-          cell.setStyle("-fx-border-color: lightgray; -fx-background-color: blue; -fx-text-fill: white;");
+          cell.setStyle(
+              "-fx-border-color: lightgray; -fx-background-color: blue; -fx-text-fill: white;");
         } else if (model.getActivePuzzle().getCellType(r, c) == CellType.WALL) {
           cell = new Button();
           cell.setDisable(true);
