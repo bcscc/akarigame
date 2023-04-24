@@ -19,10 +19,14 @@ import javafx.scene.paint.Color;
 public class PuzzleView implements FXComponent, ModelObserver {
   private final Model model;
   private final ClassicMvcController controller;
+  private Label solvedLabel;
 
   public PuzzleView(Model model, ClassicMvcController controller) {
     this.model = model;
     this.controller = controller;
+    this.solvedLabel = new Label("Puzzle Solved!");
+    this.solvedLabel.setStyle("-fx-font-size: 25px; -fx-padding: 15 0 0 0; -fx-text-fill: green;");
+    this.solvedLabel.setVisible(false);
   }
 
   @Override
@@ -34,8 +38,16 @@ public class PuzzleView implements FXComponent, ModelObserver {
     pane.getChildren().clear();
     pane.setAlignment(Pos.CENTER);
 
-    Label title = new Label("Akari");
+    Label title = new Label("Welcome to Akari!");
+    title.setStyle("-fx-font-size: 30px; -fx-padding: 40 0 0 0;");
     pane.getChildren().add(title);
+
+    Label puzzleIdx = new Label("Puzzle " + (model.getActivePuzzleIndex() + 1));
+    puzzleIdx.setStyle("-fx-font-size: 20px; -fx-padding: 15 0 0 0;");
+    pane.getChildren().add(puzzleIdx);
+    System.out.println(model.isSolved());
+    solvedLabel.setVisible(model.isSolved());
+    pane.getChildren().add(solvedLabel);
 
     GridPane grid = makePuzzle();
     grid.setStyle("-fx-padding: 10 0 0 0;");
@@ -56,18 +68,18 @@ public class PuzzleView implements FXComponent, ModelObserver {
         if (model.getActivePuzzle().getCellType(r, c) == CellType.CLUE) {
           cell = new Button("" + model.getActivePuzzle().getClue(r, c));
           cell.setDisable(true);
-          cell.setStyle("-fx-background-color: black; -fx-text-fill: white;");
+          cell.setStyle("-fx-border-color: lightgray; -fx-background-color: blue; -fx-text-fill: white;");
         } else if (model.getActivePuzzle().getCellType(r, c) == CellType.WALL) {
           cell = new Button();
           cell.setDisable(true);
-          cell.setStyle("-fx-background-color: #000000;");
+          cell.setStyle("-fx-border-color: lightgray; -fx-background-color: black;");
         } else {
           cell = new Button();
           if (model.isLit(r, c)) {
-            cell.setStyle("-fx-background-color: #FFFF1C;");
+            cell.setStyle("-fx-border-color: lightgray; -fx-background-color: #FFFF1C;");
           }
           if (model.isLamp(r, c)) {
-            cell.setStyle("-fx-background-color: #FFFF1C;");
+            cell.setStyle("-fx-border-color: lightgray; -fx-background-color: #FFFF1C;");
             Image img;
             ImageView imageView;
             if (model.isLampIllegal(r, c)) {

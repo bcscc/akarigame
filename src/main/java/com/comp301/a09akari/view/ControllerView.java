@@ -18,6 +18,7 @@ public class ControllerView implements FXComponent, ModelObserver {
   private Button nextButton;
   private Button prevButton;
   private Button resetButton;
+  private Button randomButton;
 
   public ControllerView(Model model, ClassicMvcController controller) {
     this.model = model;
@@ -38,6 +39,12 @@ public class ControllerView implements FXComponent, ModelObserver {
       prevButton.setOnAction((ActionEvent event) -> controller.clickPrevPuzzle());
     }
     pane.getChildren().add(prevButton);
+
+    if (randomButton == null) {
+      randomButton = new Button("Random Puzzle");
+      randomButton.setOnAction((ActionEvent event) -> controller.clickRandPuzzle());
+    }
+    pane.getChildren().add(randomButton);
 
     if (resetButton == null) {
       resetButton = new Button("Reset Puzzle");

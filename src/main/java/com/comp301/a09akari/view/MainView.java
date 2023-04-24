@@ -16,7 +16,7 @@ public class MainView implements FXComponent, ModelObserver {
   public MainView(Model model, ClassicMvcController controller) {
     this.model = model;
     this.controller = controller;
-    this.scene = new Scene(render(), 1000, 1000);
+    this.scene = new Scene(render(), 800, 750);
     model.addObserver(this);
   }
 
