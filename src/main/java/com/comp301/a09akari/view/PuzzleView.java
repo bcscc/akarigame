@@ -40,7 +40,12 @@ public class PuzzleView implements FXComponent, ModelObserver {
     title.setStyle("-fx-font-size: 30px; -fx-padding: 40 0 0 0;");
     pane.getChildren().add(title);
 
-    Label puzzleIdx = new Label("Puzzle " + (model.getActivePuzzleIndex() + 1) + " out of " + model.getPuzzleLibrarySize());
+    Label puzzleIdx =
+        new Label(
+            "Puzzle "
+                + (model.getActivePuzzleIndex() + 1)
+                + " out of "
+                + model.getPuzzleLibrarySize());
     puzzleIdx.setStyle("-fx-font-size: 20px; -fx-padding: 15 0 0 0;");
     pane.getChildren().add(puzzleIdx);
 
@@ -68,10 +73,10 @@ public class PuzzleView implements FXComponent, ModelObserver {
           cell.setDisable(true);
           if (!model.isClueSatisfied(r, c)) {
             cell.setStyle(
-                    "-fx-border-color: lightgray; -fx-background-color: red; -fx-text-fill: white;");
+                "-fx-border-color: lightgray; -fx-background-color: red; -fx-text-fill: white;");
           } else {
             cell.setStyle(
-                    "-fx-border-color: lightgray; -fx-background-color: blue; -fx-text-fill: white;");
+                "-fx-border-color: lightgray; -fx-background-color: blue; -fx-text-fill: white;");
           }
         } else if (model.getActivePuzzle().getCellType(r, c) == CellType.WALL) {
           cell = new Button();
